@@ -35,11 +35,35 @@ public class Vetor {
 		return false;
 	}
 	
+	public boolean adiciona(int posicao, String elemento){
+		
+		if(!(posicao>=0 && posicao < tamanho)) {
+			throw new IllegalArgumentException("Posicao invalida");
+		}
+		
+		for(int i=this.tamanho-1; i>=posicao; i--) {
+			this.elementos[i+1] = this.elementos[i];
+		}
+		this.elementos[posicao] = elemento;
+		this.tamanho++;
+		
+		return false;
+	}
+	
 	public String busca(int posicao) {
 		if(!(posicao>=0 && posicao < tamanho)) {
 			throw new IllegalArgumentException("Posicao invalida");
 		}
 		return this.elementos[posicao];
+	}
+	
+	public int busca(String elemento) {
+		for(int i=0; i<this.tamanho; i++) {
+			if(this.elementos[i].equals(elemento)) {
+				return i;
+			}
+		}
+		return -1;
 	}
 	
 	public int tamanho() {
