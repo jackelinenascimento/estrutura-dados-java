@@ -1,31 +1,23 @@
 package estruturadados.vetor;
 
-public class Vetor {
+import java.lang.reflect.Array;
 
-	private String[] elementos;
+public class Lista<T> {
+
+	private T[] elementos;
 	private int tamanho;
 
-	public Vetor(int capacidade) {
-		this.elementos = new String[capacidade];
+	public Lista(int capacidade) {
+		this.elementos = (T[]) new Object[capacidade];
 		this.tamanho = 0;
 	}
 
-	/*
-	 * public void adiciona(String elemento) { for(int i=0; i<this.elementos.length;
-	 * i++) { if(this.elementos[i] == null) { this.elementos[i] = elemento; break; }
-	 * } }
-	 */
+	public Lista(int capacidade, Class<T> tipoClasse) {
+		this.elementos = (T[]) Array.newInstance(tipoClasse, capacidade);
+		this.tamanho = 0;
+	}
 
-	/*
-	 * public void adiciona(String elemento) throws Exception {
-	 * 
-	 * if (this.tamanho < this.elementos.length) { this.elementos[this.tamanho] =
-	 * elemento; this.tamanho++; } else { throw new
-	 * Exception("Vetor já está cheio, não é possivel adicionar mais elementos"); }
-	 * }
-	 */
-
-	public boolean adiciona(String elemento){
+	public boolean adiciona(T elemento){
 		aumentaCapacidade();
 		if (this.tamanho < this.elementos.length) {
 			this.elementos[this.tamanho] = elemento;
@@ -35,7 +27,7 @@ public class Vetor {
 		return false;
 	}
 	
-	public boolean adiciona(int posicao, String elemento){
+	public boolean adiciona(int posicao, T elemento){
 		aumentaCapacidade();
 		verificaPosicaoValida(posicao);
 		
@@ -50,7 +42,7 @@ public class Vetor {
 	
 	private void aumentaCapacidade() {
 		if(this.tamanho == this.elementos.length) {
-			String[] elementosNovos = new String[this.elementos.length * 2];
+			T[] elementosNovos = (T[]) new String[this.elementos.length * 2];
 			for(int i=0; i<this.elementos.length; i++) {
 				elementosNovos[i] = this.elementos[i];
 			}
@@ -58,7 +50,7 @@ public class Vetor {
 		}
 	}
 	
-	public String busca(int posicao) {
+	public T busca(int posicao) {
 		verificaPosicaoValida(posicao);
 		return this.elementos[posicao];
 	}
